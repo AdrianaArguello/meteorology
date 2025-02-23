@@ -2,6 +2,7 @@ package com.meteorology
 
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -24,7 +25,7 @@ fun Application.configureHTTP() {
     routing {
         get("/weather") {
             val query = call.request.queryParameters["query"] ?: error("Missing query")
-            call.respond(weatherService.getWeatherData(query))
+            call.respondText(weatherService.getWeatherData(query), ContentType.Application.Json)
         }
     }
 }
